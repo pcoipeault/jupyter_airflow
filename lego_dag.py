@@ -45,7 +45,7 @@ with DAG('lego_dag',
 
         # load the file into postgres
         pg_hook = PostgresHook(postgres_conn_id=kwargs['postgres_conn_id'], schema=kwargs['database'])
-        pg_hook.bulk_load(kwargs['schema'] + '.' + kwargs['table'], tmp_filename)
+        pg_hook.bulk_load('{schema}.{table}'.format(schema=kwargs['schema'], table=kwargs['table']), tmp_filename)
 
         # output errors
         for output in pg_hook.conn.notices:
